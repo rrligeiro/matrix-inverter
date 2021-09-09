@@ -44,17 +44,20 @@ export default function MatrixField(){
     }
   }
   
-  function matrixOperations(){
+  function mutiplyByScalar(scalar, line){
+    for (let i = 0; i < matrixSize; i++) {
+      matrix[line][i] = matrix[line][i]*scalar
+    }
+    setMatrix(matrix.map((e)=>{return e.map((e)=>{return e})}));
     console.log(matrix);
+  }
 
+  function matrixDisplay(){
     return(
       <div>
-        {matrix.map((element) => {
-          return(
-            <div>{element}</div>
-            )
-          })}
+        {matrix.map((e) => {return(e.map((e)=> {return(<div>{e}</div>)}))})}
         <p>Operações:</p>
+        <button type="button" onClick={()=>{mutiplyByScalar(3, 1)}}>Multiplicar linha por escalar</button>
       </div>
     )
   }
@@ -66,7 +69,7 @@ export default function MatrixField(){
     <button type="button" onClick={() => {setMatrix([]); setMatrixSize(4); setEntryMatrix(true)}}>4x4</button>
     <button type="button" onClick={() => {setMatrix([]); setMatrixSize(5); setEntryMatrix(true)}}>5x5</button>
     <button type="button" onClick={() => {setMatrix([]); setMatrixSize(6); setEntryMatrix(true)}}>6x6</button>
-    {entryMatrix ? matrixGenerator(matrixSize) : matrixOperations()}
+    {entryMatrix ? matrixGenerator(matrixSize) : matrixDisplay()}
     </div>
   );
 }
