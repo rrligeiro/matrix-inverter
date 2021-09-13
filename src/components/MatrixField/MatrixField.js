@@ -73,9 +73,32 @@ export default function MatrixField(){
       <div>
         {matrix.map((e) => {return(e.map((e)=> {return(<div>{e}</div>)}))})}
         <p>Operações:</p>
-        <button type="button" onClick={()=>{mutiplyByScalar(2, 1)}}>Multiplicar linha por escalar</button>
-        <button type="button" onClick={()=>{changeLines(0, 1)}}>Trocar linhas</button>
-        <button type="button" onClick={()=>{multiplyAndSumLines(-2, 1, 0)}}>Multiplicar linha e somar a outra</button>
+        <div>
+          <button type="button" onClick={()=>{
+            mutiplyByScalar(Number(document.getElementById("scalarMultiplyByScalar").value), 
+                            Number(document.getElementById("lineMultiplyByScalar").value) - 1)
+                            }}>Multiplicar linha por escalar</button>
+          <input placeholder= "Escalar" id ="scalarMultiplyByScalar"/>
+          <input placeholder= "Linha" id = "lineMultiplyByScalar"/>
+        </div>
+        <div>
+          <button type="button" onClick={()=>{
+            changeLines(Number(document.getElementById("line1ChangeLines").value) - 1, 
+                        Number(document.getElementById("line2ChangeLines").value) - 1)
+                        }}>Trocar linhas</button>
+          <input placeholder= "Linha" id ="line1ChangeLines"/>
+          <input placeholder= "Linha" id = "line2ChangeLines"/>
+        </div>
+        <div>
+          <button type="button" onClick={()=>{
+            multiplyAndSumLines(Number(document.getElementById("scalar_multiplyAndSumLines").value),
+                                Number(document.getElementById("line1_multiplyAndSumLines").value) - 1,
+                                Number(document.getElementById("line2_multiplyAndSumLines").value) - 1)
+                                }}>Multiplicar linha e somar a outra</button>
+          <input placeholder= "Escalar" id ="scalar_multiplyAndSumLines"/>
+          <input placeholder= "Linha multiplicada pelo escalar" id = "line1_multiplyAndSumLines"/>
+          <input placeholder= "Linha da troca" id ="line2_multiplyAndSumLines"/>
+        </div>
       </div>
     )
   }
