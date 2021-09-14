@@ -2,6 +2,6 @@ import './navbar.css';
 
 export default function Navbar(){
   return(
-    <footer>Inversor de Matriz</footer>
+    <header className="header">Operações com matrizes</header>
   );
 }

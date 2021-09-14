@@ -1,0 +1,147 @@
+.body{
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.matrix-display{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matrix-line{
+  display: flex;
+  align-items: center;
+}
+
+.matrix-itens{
+  width: 60px;
+  height: 60px;
+  line-height: 60px; 
+  font-size: 100%;
+  text-align: center;
+  vertical-align: middle;
+  border: solid 1px black;
+  margin: 1px;
+}
+
+.matrix-input-field{
+  margin: 100px;
+  align-items: center;
+}
+
+.matrix-input{
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+
+.matrix-generator-field{
+  margin: 10px;
+}
+
+.matrix-generator-field button{
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #fa9393;
+  padding: 10px 20px 10px 20px;
+  margin: 2px;
+  text-decoration: none;
+  border: 0px;
+  font-weight: 900;
+}
+
+.matrix-generator-field button:hover {
+  background: #fc4646;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.operation-selectors{
+  margin: 10px;
+}
+
+.operation-selectors button{
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #fa9393;
+  padding: 10px 20px 10px 20px;
+  margin: 20px;
+  text-decoration: none;
+  border: 0px;
+  font-weight: 900;
+}
+
+.operation-selectors button:hover {
+  background: #fc4646;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.operation-field{
+  display: flex;
+  margin: 10px;
+}
+
+.operation-field button{
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 18px;
+  background: #fa9393;
+  padding: 10px 20px 10px 20px;
+  margin: 20px;
+  text-decoration: none;
+  border: 0px;
+  font-weight: 900;
+}
+
+.operation-field button:hover {
+  background: #fc4646;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.operation-field input{
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.multiplyByScalar{
+  align-items: center;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.changeLines{
+  align-items: center;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.multiplyAndSumLines{
+  align-items: center;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
