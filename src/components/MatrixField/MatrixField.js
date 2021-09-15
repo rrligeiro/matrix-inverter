@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './matrixfield.css';
+import * as Fraction from "fraction.js"
 
 export default function MatrixField(){
   const [ matrixSize, setMatrixSize ] = useState(2);
@@ -33,10 +34,13 @@ export default function MatrixField(){
     for (let i = 0; i < matrixSize; i++) {
       let tempArray = [];
       for (let j = 0; j < matrixSize; j++) {
-        tempArray.push(Number(document.querySelectorAll('input')[k].value));
+        tempArray.push(document.querySelectorAll('input')[k].value);
         k++;
       }
       matrix.push(tempArray);
+      console.log(matrix);
+      console.log(typeof(Fraction(1/3).toString()))
+      console.log(Fraction(1/3).valueOf())
     }
   }
 
@@ -53,9 +57,9 @@ export default function MatrixField(){
   
   function mutiplyByScalar(scalar, line){
     for (let i = 0; i < matrix[line].length; i++) {
-      matrix[line][i] = matrix[line][i]*scalar
+      matrix[line][i] = Fraction(matrix[line][i]).valueOf() * Fraction(scalar).valueOf();
     }
-    setMatrix(matrix.map((e)=>{return e.map((e)=>{return e})}));
+    setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
     console.log(matrix)
   }
 
@@ -69,9 +73,9 @@ export default function MatrixField(){
 
   function multiplyAndSumLines(scalar, line1, line2){
     for (let i = 0; i < matrix[line1].length; i++) {
-      matrix[line2][i] = matrix[line2][i] + (matrix[line1][i]*scalar);
+      matrix[line2][i] = Fraction(matrix[line2][i]).valueOf() + (Fraction(matrix[line1][i]).valueOf() * Fraction(scalar).valueOf());
     }
-    setMatrix(matrix.map((e)=>{return e.map((e)=>{return e})}));
+    setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
     console.log(matrix)
   }
 
@@ -91,8 +95,8 @@ export default function MatrixField(){
         <div className="operation-field">
           <div className="multiplyByScalar">
             <button type="button" onClick={()=>{
-              mutiplyByScalar(Number(document.getElementById("scalar_multiplyByScalar").value), 
-                              Number(document.getElementById("line_multiplyByScalar").value) - 1)
+              mutiplyByScalar(document.getElementById("scalar_multiplyByScalar").value, 
+                              document.getElementById("line_multiplyByScalar").value - 1)
                               }}>Multiplicar linha por escalar</button>
             <div>kL --{'>'} L</div>
             <div className = "operation-inputs">
@@ -102,8 +106,8 @@ export default function MatrixField(){
           </div>
           <div className="changeLines">
             <button type="button" onClick={()=>{
-              changeLines(Number(document.getElementById("line_1changeLines").value) - 1, 
-                          Number(document.getElementById("line2_changeLines").value) - 1)
+              changeLines(document.getElementById("line_1changeLines").value - 1, 
+                          document.getElementById("line2_changeLines").value - 1)
                           }}>Trocar linhas</button>
             <div>L {'<'}--{'>'} L</div>
             <div className = "operation-inputs">
@@ -113,9 +117,9 @@ export default function MatrixField(){
           </div>
           <div className="multiplyAndSumLines">
             <button type="button" onClick={()=>{
-              multiplyAndSumLines(Number(document.getElementById("scalar_multiplyAndSumLines").value),
-                                  Number(document.getElementById("line1_multiplyAndSumLines").value) - 1,
-                                  Number(document.getElementById("line2_multiplyAndSumLines").value) - 1)
+              multiplyAndSumLines(document.getElementById("scalar_multiplyAndSumLines").value,
+                                  document.getElementById("line1_multiplyAndSumLines").value - 1,
+                                  document.getElementById("line2_multiplyAndSumLines").value - 1)
                                   }}>Multiplicar linha e somar a outra</button>
             <div>kLx + Ly   --{'>'} Ly</div>
             <div className = "operation-inputs">
