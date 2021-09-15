@@ -38,9 +38,6 @@ export default function MatrixField(){
         k++;
       }
       matrix.push(tempArray);
-      console.log(matrix);
-      console.log(typeof(Fraction(1/3).toString()))
-      console.log(Fraction(1/3).valueOf())
     }
   }
 
@@ -60,7 +57,6 @@ export default function MatrixField(){
       matrix[line][i] = Fraction(matrix[line][i]).valueOf() * Fraction(scalar).valueOf();
     }
     setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
-    console.log(matrix)
   }
 
   function changeLines(line1, line2){
@@ -68,7 +64,6 @@ export default function MatrixField(){
     matrix[line1] = matrix[line2];
     matrix[line2] = tempArray;
     setMatrix(matrix.map((e)=>{return e.map((e)=>{return e})}));
-    console.log(matrix)
   }
 
   function multiplyAndSumLines(scalar, line1, line2){
@@ -76,7 +71,6 @@ export default function MatrixField(){
       matrix[line2][i] = Fraction(matrix[line2][i]).valueOf() + (Fraction(matrix[line1][i]).valueOf() * Fraction(scalar).valueOf());
     }
     setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
-    console.log(matrix)
   }
 
   function matrixDisplay(){
