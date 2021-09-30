@@ -1,8 +1,7 @@
 .body{
-  flex: 1 0 auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
 
 .matrix-display{
