@@ -3,18 +3,21 @@ import './matrixfield.css';
 import * as Fraction from "fraction.js"
 
 export default function MatrixField(){
-  const [ matrixSize, setMatrixSize ] = useState(2);
+  const [ matrixLine, setMatrixLine ] = useState(2);
+  const [ matrixColunm, setMatrixColunm ] = useState(2);
   const [ entryMatrix, setEntryMatrix ] = useState(true);
   const [ matrix, setMatrix ] = useState([]);
 
-  function matrixGenerator(matrixSize) {
+  function matrixGenerator(matrixLine, matrixColunm) {
+    console.log(matrixLine)
+    console.log(matrixColunm)
     return(
       <div>
         <div className="matrix-input-field">
-          {[...Array(matrixSize)].map(() => {
+          {[...Array(matrixLine)].map(() => {
             return(
               <div>
-                {[...Array(matrixSize)].map(() => {
+                {[...Array(matrixColunm)].map(() => {
                   return(
                     <input className="matrix-input"/>
                   )})}
@@ -30,10 +33,10 @@ export default function MatrixField(){
   }
 
   function saveMatrix(){
-    let k = 0;
-    for (let i = 0; i < matrixSize; i++) {
+    let k = 2;
+    for (let i = 0; i < matrixLine; i++) {
       let tempArray = [];
-      for (let j = 0; j < matrixSize; j++) {
+      for (let j = 0; j < matrixColunm; j++) {
         tempArray.push(document.querySelectorAll('input')[k].value);
         k++;
       }
@@ -42,10 +45,10 @@ export default function MatrixField(){
   }
 
   function addIndentityMatrix(){
-    for (let i = 0; i < matrixSize; i++) {
-      for (let j = matrixSize; j < matrixSize*2; j++) {
+    for (let i = 0; i < matrixLine; i++) {
+      for (let j = matrixLine; j < matrixLine*2; j++) {
         matrix[i][j] = 0;
-        if ( i === j - matrixSize) {
+        if ( i === j - matrixLine) {
           matrix[i][j] = 1;
         }
       }
@@ -130,14 +133,15 @@ export default function MatrixField(){
   return(
     <div className="body">
       <div className="matrix-generator-field">
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(2); setEntryMatrix(true)}}>2 x 2</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(3); setEntryMatrix(true)}}>3 x 3</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(4); setEntryMatrix(true)}}>4 x 4</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(5); setEntryMatrix(true)}}>5 x 5</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(6); setEntryMatrix(true)}}>6 x 6</button>
+        <div className="matrix-text">Selecione o tamanho da matriz</div>
+        <div>
+          <button type="button" onClick={() => {setMatrix([]); setMatrixLine(Number(document.getElementById("line").value)); setMatrixColunm(Number(document.getElementById("colunm").value)); setEntryMatrix(true)}}>m x n</button>
+          <input placeholder= "m" id = "line"/>
+          <input placeholder= "n" id ="colunm"/>
+        </div>
       </div>
       <div>
-        {entryMatrix ? matrixGenerator(matrixSize) : matrixDisplay()}
+        {entryMatrix ? matrixGenerator(matrixLine, matrixColunm) : matrixDisplay()}
       </div>
     </div>
   );

@@ -41,6 +41,17 @@
 
 .matrix-generator-field{
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.matrix-text{
+  font-family: Arial;
+  color: #fa9393;
+  font-size: 25px;
+  margin:10px;
+  text-decoration: none;
+  font-weight: 900;
 }
 
 .matrix-generator-field button{
@@ -58,6 +69,13 @@
   font-weight: 900;
 }
 
+.matrix-generator-field input{
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
 .matrix-generator-field button:hover {
   background: #fc4646;
   text-decoration: none;
@@ -65,7 +83,7 @@
 }
 
 .operation-selectors{
-  margin: 10px;
+  margin: 20px;
 }
 
 .operation-selectors button{
@@ -91,7 +109,8 @@
 
 .operation-field{
   display: flex;
-  margin: 10px;
+  justify-content: center;
+  margin: 30px;
 }
 
 .operation-field button{
