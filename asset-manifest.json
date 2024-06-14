@@ -1,20 +1,13 @@
 {
   "files": {
-    "main.css": "/matrix-inverter/static/css/main.be2ec27e.chunk.css",
-    "main.js": "/matrix-inverter/static/js/main.f5e5492d.chunk.js",
-    "main.js.map": "/matrix-inverter/static/js/main.f5e5492d.chunk.js.map",
-    "runtime-main.js": "/matrix-inverter/static/js/runtime-main.97a8a514.js",
-    "runtime-main.js.map": "/matrix-inverter/static/js/runtime-main.97a8a514.js.map",
-    "static/js/2.310adaa9.chunk.js": "/matrix-inverter/static/js/2.310adaa9.chunk.js",
-    "static/js/2.310adaa9.chunk.js.map": "/matrix-inverter/static/js/2.310adaa9.chunk.js.map",
+    "main.css": "/matrix-inverter/static/css/main.0ae57566.css",
+    "main.js": "/matrix-inverter/static/js/main.305d7b97.js",
     "index.html": "/matrix-inverter/index.html",
-    "static/css/main.be2ec27e.chunk.css.map": "/matrix-inverter/static/css/main.be2ec27e.chunk.css.map",
-    "static/js/2.310adaa9.chunk.js.LICENSE.txt": "/matrix-inverter/static/js/2.310adaa9.chunk.js.LICENSE.txt"
+    "main.0ae57566.css.map": "/matrix-inverter/static/css/main.0ae57566.css.map",
+    "main.305d7b97.js.map": "/matrix-inverter/static/js/main.305d7b97.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.97a8a514.js",
-    "static/js/2.310adaa9.chunk.js",
-    "static/css/main.be2ec27e.chunk.css",
-    "static/js/main.f5e5492d.chunk.js"
+    "static/css/main.0ae57566.css",
+    "static/js/main.305d7b97.js"
   ]
 }
