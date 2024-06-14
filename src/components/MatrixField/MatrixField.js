@@ -1,35 +1,37 @@
 import { useState } from 'react';
 import './matrixfield.css';
-import * as Fraction from "fraction.js"
+import * as Fraction from "fraction.js";
 
 export default function MatrixField(){
-  const [ matrixSize, setMatrixSize ] = useState(2);
-  const [ entryMatrix, setEntryMatrix ] = useState(true);
-  const [ matrix, setMatrix ] = useState([]);
+  const [matrixSize, setMatrixSize] = useState(2);
+  const [entryMatrix, setEntryMatrix] = useState(true);
+  const [matrix, setMatrix] = useState([]);
+  const [history, setHistory] = useState([]);
 
   function matrixGenerator(matrixSize) {
     return(
       <div>
         <div className="matrix-input-field">
-          {[...Array(matrixSize)].map(() => {
+          {[...Array(matrixSize)].map((_, i) => {
             return(
-              <div>
-                {[...Array(matrixSize)].map(() => {
+              <div key={i}>
+                {[...Array(matrixSize)].map((_, j) => {
                   return(
-                    <input className="matrix-input"/>
+                    <input key={j} className="matrix-input"/>
                   )})}
               </div>
             )})}
         </div>
         <div className="operation-selectors">
-          <button type="button" onClick={()=>{ saveMatrix(); setEntryMatrix(false) }}>Escalonamento</button>
-          <button type="button" onClick={()=>{ saveMatrix(); addIndentityMatrix(); setEntryMatrix(false) }}>Inversão de matriz</button>
+          <button type="button" onClick={() => { saveMatrix(); setEntryMatrix(false) }}>Escalonamento</button>
+          <button type="button" onClick={() => { saveMatrix(); addIdentityMatrix(); setEntryMatrix(false) }}>Inversão de matriz</button>
         </div>
       </div>
     )
   }
 
   function saveMatrix(){
+    let tempMatrix = [];
     let k = 0;
     for (let i = 0; i < matrixSize; i++) {
       let tempArray = [];
@@ -37,51 +39,62 @@ export default function MatrixField(){
         tempArray.push(document.querySelectorAll('input')[k].value);
         k++;
       }
-      matrix.push(tempArray);
+      tempMatrix.push(tempArray);
     }
+    setMatrix(tempMatrix);
+    setHistory([...history, `Matrix of size ${matrixSize}x${matrixSize} created`]);
   }
 
-  function addIndentityMatrix(){
+  function addIdentityMatrix(){
+    let newMatrix = [...matrix];
     for (let i = 0; i < matrixSize; i++) {
-      for (let j = matrixSize; j < matrixSize*2; j++) {
-        matrix[i][j] = 0;
-        if ( i === j - matrixSize) {
-          matrix[i][j] = 1;
+      for (let j = matrixSize; j < matrixSize * 2; j++) {
+        newMatrix[i][j] = 0;
+        if (i === j - matrixSize) {
+          newMatrix[i][j] = 1;
         }
       }
     }
+    setMatrix(newMatrix);
+    setHistory([...history, `Identity matrix added to the right side`]);
   }
-  
-  function mutiplyByScalar(scalar, line){
-    for (let i = 0; i < matrix[line].length; i++) {
-      matrix[line][i] = Fraction(matrix[line][i]).valueOf() * Fraction(scalar).valueOf();
+
+  function multiplyByScalar(scalar, line){
+    let newMatrix = [...matrix];
+    for (let i = 0; i < newMatrix[line].length; i++) {
+      newMatrix[line][i] = Fraction(newMatrix[line][i]).valueOf() * Fraction(scalar).valueOf();
     }
-    setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
+    setMatrix(newMatrix.map(e => e.map(e => Fraction(e).toFraction())));
+    setHistory([...history, `Line ${line + 1} multiplied by ${scalar}`]);
   }
 
   function changeLines(line1, line2){
-    let tempArray = matrix[line1];
-    matrix[line1] = matrix[line2];
-    matrix[line2] = tempArray;
-    setMatrix(matrix.map((e)=>{return e.map((e)=>{return e})}));
+    let newMatrix = [...matrix];
+    let tempArray = newMatrix[line1];
+    newMatrix[line1] = newMatrix[line2];
+    newMatrix[line2] = tempArray;
+    setMatrix(newMatrix.map(e => e.map(e => e)));
+    setHistory([...history, `Lines ${line1 + 1} and ${line2 + 1} swapped`]);
   }
 
   function multiplyAndSumLines(scalar, line1, line2){
-    for (let i = 0; i < matrix[line1].length; i++) {
-      matrix[line2][i] = Fraction(matrix[line2][i]).valueOf() + (Fraction(matrix[line1][i]).valueOf() * Fraction(scalar).valueOf());
+    let newMatrix = [...matrix];
+    for (let i = 0; i < newMatrix[line1].length; i++) {
+      newMatrix[line2][i] = Fraction(newMatrix[line2][i]).valueOf() + (Fraction(newMatrix[line1][i]).valueOf() * Fraction(scalar).valueOf());
     }
-    setMatrix(matrix.map((e)=>{return e.map((e)=>{return Fraction(e).toFraction()})}));
+    setMatrix(newMatrix.map(e => e.map(e => Fraction(e).toFraction())));
+    setHistory([...history, `Line ${line1 + 1} multiplied by ${scalar} and added to line ${line2 + 1}`]);
   }
 
   function matrixDisplay(){
     return(
       <div>
         <div className="matrix-display">
-          {matrix.map((e) => {
+          {matrix.map((e, i) => {
             return(
-            <div className="matrix-line">
-              {e.map((e)=> {return(
-              <div className="matrix-itens" >{e}</div>
+            <div key={i} className="matrix-line">
+              {e.map((e, j) => {return(
+              <div key={j} className="matrix-item" >{e}</div>
               )})}
             </div>
             )})}
@@ -89,7 +102,7 @@ export default function MatrixField(){
         <div className="operation-field">
           <div className="multiplyByScalar">
             <button type="button" onClick={()=>{
-              mutiplyByScalar(document.getElementById("scalar_multiplyByScalar").value, 
+              multiplyByScalar(document.getElementById("scalar_multiplyByScalar").value, 
                               document.getElementById("line_multiplyByScalar").value - 1)
                               }}>Multiplicar linha por escalar</button>
             <div>kL --{'>'} L</div>
@@ -123,6 +136,14 @@ export default function MatrixField(){
             </div>
           </div>
         </div>
+        <div className="operation-history">
+          <h3>Histórico de Operações</h3>
+          <ul>
+            {history.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     )
   }
@@ -130,11 +151,11 @@ export default function MatrixField(){
   return(
     <div className="body">
       <div className="matrix-generator-field">
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(2); setEntryMatrix(true)}}>2 x 2</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(3); setEntryMatrix(true)}}>3 x 3</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(4); setEntryMatrix(true)}}>4 x 4</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(5); setEntryMatrix(true)}}>5 x 5</button>
-        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(6); setEntryMatrix(true)}}>6 x 6</button>
+        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(2); setEntryMatrix(true); setHistory([])}}>2 x 2</button>
+        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(3); setEntryMatrix(true); setHistory([])}}>3 x 3</button>
+        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(4); setEntryMatrix(true); setHistory([])}}>4 x 4</button>
+        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(5); setEntryMatrix(true); setHistory([])}}>5 x 5</button>
+        <button type="button" onClick={() => {setMatrix([]); setMatrixSize(6); setEntryMatrix(true); setHistory([])}}>6 x 6</button>
       </div>
       <div>
         {entryMatrix ? matrixGenerator(matrixSize) : matrixDisplay()}
