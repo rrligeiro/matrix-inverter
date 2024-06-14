@@ -145,3 +145,60 @@
   display: flex;
   flex-direction: column;
 }
+
+.operation-history {
+  margin: 20px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.operation-history h3 {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.operation-history ol {
+  list-style: decimal inside;
+  padding-left: 0;
+}
+
+.operation-history li {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+
+.operation-history li:nth-child(odd) {
+  background: #f9f9f9;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.undo-button {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 18px;
+  background: #fa9393;
+  padding: 10px 20px 10px 20px;
+  margin: 20px;
+  text-decoration: none;
+  border: 0px;
+  font-weight: 900;
+}
+
+.undo-button:hover {
+  background: #fc4646;
+  text-decoration: none;
+  cursor: pointer;
+}
